@@ -38,7 +38,29 @@ int main(void){
 
     // run without Wall / Werror
     // I just get random numbers, i imagine random data in memory from this process
-    // Isnt this a security issue if you dont free old variables
+    // Isnt this a security issue if you dont free old variables??
 
+    // Question 5:
+    // Not legal identifiers: a) 100_bottles
+    // Must start with letter or underscore
+
+    // Question 6:
+    // Reserved for internal compilers / std lib ?
+    // Also hard to read
+
+    // Question 7:
+    // for, not If (capitialization matters), main (special but not keyword),
+    // not printf (in the std lib, not C), while
+
+    // Question 8:
+    // there are 14 tokens
+
+    // Question 9:
+    // answer = (3*q-p*p) / 3
+
+    // Question 10:
+    // Within the #include directive
+    // between keywords like int ...
+    //
 
 }
