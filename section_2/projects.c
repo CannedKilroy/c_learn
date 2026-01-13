@@ -48,8 +48,8 @@ int main(void){
     // Factor x from for the terms with x
     // x(3x^4 +2x^3 -5x^2 -x +7)
     // Repeat. Results in less multiplications
-    float x2;
-    
+    //float x2;
+
     return 0;
 
 }
