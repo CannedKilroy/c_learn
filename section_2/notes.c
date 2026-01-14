@@ -87,6 +87,8 @@ directives
 
 global vars
 
+functions // Must be declared before can be used
+
 int main(void)
 {
     declerations
@@ -158,6 +160,8 @@ Declerations:
   For some older compilers, which were single pass, all declerations
   must come before all statements. You cant declare statement right
   before usage
+  This is true still for func declerations. Functions must be declared
+  before they cant be used. 
 
 - Instantiation:
 - Instead of declaring and assigning a var to a value
