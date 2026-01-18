@@ -242,15 +242,25 @@ something that can give strange results.
 Reading Input:
 -----------------------------------------------------------------------------------------------
 - use scanf(str, &var1, &var2, ...);
+- it does even more, its a pattern matching function
+- reads linearly left to right
 - usually only contains conversion specifications
 - Example: 
   int i;
   scanf("%d", &i) // Reads an int then stores it into i
 - Can use conditional like scanf("%d",&i) == 1 to check
   if the value was correctly read. 0 is input didnt match %f
-  and eof -1 end of input or input failure
-- returns the number of successful variables read
-- How scanf reads Intergers:
+  and eof -1 end of input or input failure  
+  returns the number of successful variables read
+
+  Note: in scanf, conversion specifiers ,THAT DO, skip whitespace
+  only skip whitespace before the number. A space in the format str
+  skips whitespace at that exact point in the input. If the space
+  is not there, it will wait or "hang" till it gets it, even if it just
+  discards it. 
+
+
+  - How scanf reads Intergers:
   1. Skips leading whitespace ie \n tabs etc
   2. Search for a +, -, or digit
   3. Start reading
@@ -271,7 +281,8 @@ Reading Input:
   3. Then continue reading a series of digits (possibly containting a
   decimal point if it hasnt encounterd one as the first charecter)
   4. Lastly look for a possible (e or E) plus an optional sign (+\-) plus more digits
-- For Floats Example of valid Inputs:
+  Note: %e, %f, %g are interchangable in scanf
+  - For Floats Example of valid Inputs:
 - For Floats Example of invalid inputs:
 - Example of invalid inputs:
 
@@ -279,7 +290,11 @@ Reading Input:
   - Always reads exactly one charecter
   - Does not ignore leading white space. You must add "_%c" to ignore whitespace,
     where _ is a space. 
-pass
+
+- Whitespace:
+  - All conversion specifiers besides %c, scanf will skip whitespace for them
+  - Whitespace in the scanf format str, like "%d %d" means skip 0 to many whitespace
+    This is why " %c" is a thing. 
 
 How scanf format strings work:
 - This is how scanf allows formatting, ignoring whitespace, etc.
@@ -315,6 +330,44 @@ How scanf format strings work:
   on the same line as the printf statement
 - if you pass the wrong data type into it just crashes
   ie, scanf enforces type
+
+  Example scanf:
+  Input: 1-20.3-4.0e3\n
+  scanf("%d%d%f%f", &i, &j, &x, &y);
+  1. scanf reads 1 and the -. A digit cant have a minus inside it.
+     so scanf places 1 into i, an puts the - back into stdin
+  2. scanf reads -20. . A digit cant have a decimal in it,
+     so scanf places -20 into j, and puts the decimal back.
+  3. scanf reads .3- . A float cannot have 2 decimals.
+     so scanf places .3 into x, and puts the - back into stdin
+  4. scanf reads -4.0e3\n. Floats cant contain newline chars,
+     so scanf places -4.0e3 into y, and puts the \n back into stdin
+
+  Ordinary chars in scanf format str:
+  - Whitespace charecters:
+    - When scanf encounters 1 or more whitespace chars in the format str,
+      it reads until first nonwhitespace charecter, then puts the 
+      nonwhitespace charecter back into stdin.
+    - The # of whitespace chars in the format str does not matter. 
+      Any single whitespace charecter matches to any number of whitespaces
+      in stdin, including None to many
+      Example: scanf(" %d") same as scanf("  %d")
+  - Other charecters:
+    - When scanf encounters a nonwhitespace charecter in the format str,
+      it compares it with the next input charecter. If: the two charecters
+      match, scanf discards the input charecter and continues processing
+      the format str. If: the two charecters do NOT match, it places
+      the input charecter back into stdin, and aborts
+  - Example:
+    scanf("%d/%d")
+    Input: _5/_96 
+    It skips first space since its looking for int. Reads 5, then it looks
+    for /, matches it with / in stdin, then ignores whitespace and matches
+    %d with 96
+    Input: _5_/96
+    It skips the first space, since it is looking for a interger. It matches
+    the 5 with %d. It then looks for a "/". However, it encounters a space. 
+    It places the space back and aborts. 
 
 
 Macro Definition:
