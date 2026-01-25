@@ -50,6 +50,20 @@ int main(void){
     printf("Incorrect usage of scanf, formatting like printf\n");
     scanf("%d, %d, %f, %f", &i, &j, &x, &y);
 
+    // THis is valid
+    printf("%d\n", (i++, i+j));
+
+    // print 3 to 12 squared in differnt loops
+    for (i=3; i<13; i++){
+        printf("i: %d  i^2: %d\n", i, i*i);
+    }
+    // 1,1 | 1,2 | 1,3
+
+    do{
+
+    }while () {
+
+    }
 
 
     return 0;

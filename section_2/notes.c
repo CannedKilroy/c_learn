@@ -317,6 +317,11 @@ How scanf format strings work:
     input: "5_/9" does not. It reads the 5, and immediatly 
     expects the slash, not a space.
   
+  Note: If you want scanf to work with conditional number
+        of args, like 5 or 7, then you can use scanf("%c", charecter),
+        and if that charecter is a space then its 7,
+        if its a newline then they pressed enter
+  
   Another example:
   float a,c ;
   float b ;
